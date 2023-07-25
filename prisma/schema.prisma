@@ -6,12 +6,8 @@ generator client {
 }
 
 datasource db {
-    provider = "sqlite"
-    // NOTE: When using mysql or sqlserver, uncomment the @db.Text annotations in model Account below
-    // Further reading:
-    // https://next-auth.js.org/adapters/prisma#create-the-prisma-schema
-    // https://www.prisma.io/docs/reference/api-reference/prisma-schema-reference#string
-    url      = env("DATABASE_URL")
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
 }
 
 model Example {
@@ -63,4 +59,35 @@ model VerificationToken {
     expires    DateTime
 
     @@unique([identifier, token])
+}
+
+model Thirukkural {
+    id                    Int    @id 
+    paal	          String?
+    section	          String?
+    section_index	  Int?
+    paal_section	  String?
+    eyal	          String?
+    chaptergroup	  String?
+    chaptergroup_index	  Int?
+    eyal_chaptergroup	  String?
+    athikaram	          String?
+    chapter	          String?
+    chapter_index	  Int?
+    athikaram_chapter	  String?
+    number	          Int?
+    kural_index	          Int?
+    kural	          String?
+    easy_kural	          String?
+    couplet	          String?
+    kural_couplet	  String?
+    porul_0_explanation	  String?
+    porul_0_name	  String?
+    porul_1_explanation	  String?
+    porul_1_name	  String?
+    porul_2_explanation	  String?
+    porul_2_name	  String?
+    meaning_0_explanation String?
+    meaning_0_name	  String?
+    mediaHash             String?
 }
