@@ -1,10 +1,10 @@
 import { signIn, signOut, useSession } from "next-auth/react";
 import Head from "next/head";
 import Link from "next/link";
+import { type FC, useState } from "react";
 import { api } from "~/utils/api";
 
 export default function Home() {
-  const hello = api.example.hello.useQuery({ text: "from tRPC" });
 
   return (
     <>
@@ -19,6 +19,9 @@ export default function Home() {
             Easy <span className="text-[hsl(280,100%,70%)]">Kural</span> Learning
           </h1>
           <div className="flex flex-col items-center gap-2">
+            <ThirukkuralAthikaram chapter={16}/>
+          </div>
+          <div className="flex flex-col items-center gap-2">
             <AuthShowcase />
           </div>
         </div>
@@ -26,6 +29,30 @@ export default function Home() {
     </>
   );
 }
+
+const ThirukkuralAthikaram:FC = ({
+  chapter = 1,
+}:{
+  chapter?:number
+}) => {
+  const { data: athikaramKurals, isLoading } = api.thirukkural.getKuralsForAthikaram.useQuery({ chapter_index: chapter });
+  // const { data: athikaramKurals, isLoading } = api.thirukkural.getAll.useQuery();
+
+  if(isLoading) return <div>Fetching Kurals...</div>;
+
+  return (
+    <div className="flex flex-col gap-4">
+      {athikaramKurals?.map((entry, index) => {
+      return (
+        <div key={index} className="text-white">
+          <span>{entry.id}</span>
+          <p>{entry.kural}</p>
+        </div>
+      );
+      })}
+    </div>
+  );
+};
 
 function AuthShowcase() {
   const { data: sessionData } = useSession();
