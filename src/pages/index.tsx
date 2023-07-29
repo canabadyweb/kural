@@ -19,10 +19,19 @@ export default function Home() {
             Easy <span className="text-[hsl(280,100%,70%)]">Kural</span> Learning
           </h1>
           <div className="flex flex-col items-center gap-2">
-            <ThirukkuralAthikaram chapter={16}/>
+             <Link
+            href="/learn"
+            className={[
+              "flex w-full items-center justify-center rounded-xl border-b-4 border-gray-200 bg-white p-3 uppercase",
+              "text-green-500",
+            ].join(" ")}
+          >
+            Learn
+          </Link>
+            {/* <ThirukkuralAthikaram chapter={16}/> */}
           </div>
           <div className="flex flex-col items-center gap-2">
-            <AuthShowcase />
+            {/* <AuthShowcase /> */}
           </div>
         </div>
       </main>
