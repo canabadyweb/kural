@@ -91,3 +91,14 @@ model Thirukkural {
     meaning_0_name	  String?
     mediaHash             String?
 }
+
+model Athikaram {
+    athikaramNumber	 Int 	  @id
+    description      	 String?
+    backgroundColor      String?
+    textColor      	 String?
+    borderColor      	 String?
+    tiles 	      	 String?
+
+    @@unique([athikaramNumber, description])
+}
