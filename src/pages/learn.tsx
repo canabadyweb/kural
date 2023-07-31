@@ -650,7 +650,7 @@ const UnitHeader = ({
           <p className="text-lg">{description}</p>
         </div>
         <Link
-          href={`https://duolingo.com/guidebook/${language.code}/${athikaramNumber}`}
+          href={`https://duolingo.com/guidebook/${language}/${athikaramNumber}`}
           className={[
             "flex items-center gap-3 rounded-2xl border-2 border-b-4 p-3 transition hover:text-gray-100",
             borderColor,
