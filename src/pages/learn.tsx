@@ -32,7 +32,7 @@ import {
 // import { LeftBar } from "../components/LeftBar";
 import { useRouter } from "next/router";
 // import { LoginScreen, useLoginScreen } from "../components/LoginScreen";
-// import { useBoundStore } from "../hooks/useBoundStore";
+import { useBoundStore } from "../hooks/useBoundStore";
 import type { Tile, TileType, Unit } from "../utils/units";
 // import { units } from "../utils/units";
 
@@ -328,9 +328,9 @@ const UnitSection = ({ unit }: { unit: Unit }): JSX.Element => {
 
   const closeTooltip = useCallback(() => setSelectedTile(null), []);
 
-  const lessonsCompleted = 2; // useBoundStore((x) => x.lessonsCompleted);
-  const increaseLessonsCompleted = 4; // useBoundStore( (x) => x.increaseLessonsCompleted);
-  const increaseLingots = 5; // useBoundStore((x) => x.increaseLingots);
+  const lessonsCompleted = useBoundStore((x) => x.lessonsCompleted);
+  const increaseLessonsCompleted = useBoundStore( (x) => x.increaseLessonsCompleted);
+  const increaseLingots = useBoundStore((x) => x.increaseLingots);
 
 
   return (
