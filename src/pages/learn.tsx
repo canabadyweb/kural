@@ -38,6 +38,8 @@ import type { Tile, TileType, Unit } from "../utils/units";
 
 import {api} from "~/utils/api";
 
+let units = [];
+
 
 
 type TileStatus = "LOCKED" | "ACTIVE" | "COMPLETE";
@@ -45,8 +47,8 @@ type TileStatus = "LOCKED" | "ACTIVE" | "COMPLETE";
 const tileStatus = (tile: Tile, lessonsCompleted: number): TileStatus => {
   const lessonsPerTile = 4;
   const tilesCompleted = Math.floor(lessonsCompleted / lessonsPerTile);
-  // const tiles = units.flatMap((unit) => unit.tiles.split());
-  const tiles = [];
+  const tiles = units.flatMap((unit) => unit.tiles);
+
   const tileIndex = tiles.findIndex((t) => t === tile);
 
   if (tileIndex < tilesCompleted) {
@@ -507,7 +509,6 @@ const Learn: NextPage = () => {
 
   const { data: athikarams, isLoading } = api.athikaram.getAll.useQuery();
   const { data: tiles, isTilesLoading } = api.tiles.getAll.useQuery();
-  let units = [];
 
   const topBarColors = getTopBarColors(scrollY, athikarams);
 
