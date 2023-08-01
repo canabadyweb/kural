@@ -317,7 +317,6 @@ const UnitSection = ({ unit }: { unit: Unit }): JSX.Element => {
 
   const [selectedTile, setSelectedTile] = useState<null | number>(null);
 
-  const tiles = unit.tiles.split(); 
 
   useEffect(() => {
     const unselectTile = () => setSelectedTile(null);
@@ -342,7 +341,7 @@ const UnitSection = ({ unit }: { unit: Unit }): JSX.Element => {
       />
       <div className="relative mt-[67px] mb-8 flex max-w-2xl flex-col items-center gap-4">
         {
-          tiles?.map((tile, i): JSX.Element => {
+          unit?.tiles?.map((tile, i): JSX.Element => {
           const status = tileStatus(tile, lessonsCompleted);
           return (
             <Fragment key={i}>
@@ -507,6 +506,8 @@ const Learn: NextPage = () => {
   }, [scrollY]);
 
   const { data: athikarams, isLoading } = api.athikaram.getAll.useQuery();
+  const { data: tiles, isTilesLoading } = api.tiles.getAll.useQuery();
+  let units = [];
 
   const topBarColors = getTopBarColors(scrollY, athikarams);
 
@@ -516,6 +517,20 @@ const Learn: NextPage = () => {
 
   if (isLoading){
     return <div>Loading...</div>;
+  } else {
+
+      if (isTilesLoading){
+        return <div>Loading...</div>;
+      } 
+
+      units = athikarams?.map( (a, i) =>  ({
+          athikaramNumber: a.athikaramNumber,
+          description: a.description,
+          backgroundColor: a.backgroundColor,
+          textColor: a.textColor,
+          borderColor: a.borderColor,
+          tiles: [...tiles]
+      }))
   }
 
   return (
@@ -528,7 +543,7 @@ const Learn: NextPage = () => {
 
       <div className="flex justify-center gap-3 pt-14 sm:p-6 sm:pt-10 md:ml-24 lg:ml-64 lg:gap-12">
         <div className="flex max-w-2xl grow flex-col">
-          {athikarams?.map((unit) => (
+          {units?.map((unit) => (
             <UnitSection unit={unit} key={unit.athikaramNumber} />
           ))}
           <div className="sticky bottom-28 left-0 right-0 flex items-end justify-between">
