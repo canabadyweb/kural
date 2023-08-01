@@ -1,19 +1,17 @@
 import { z } from "zod";
 import { createTRPCRouter, publicProcedure } from "../trpc";
 
-export const athikaramRouter = createTRPCRouter({
+export const tilesRouter = createTRPCRouter({
   getAll: publicProcedure.query( async ({ctx}) => {
     try {
-      return await ctx.prisma.athikaram.findMany({
+      return await ctx.prisma.tiles.findMany({
         select:{
-          athikaramNumber: true,
+          id: true,
+          type: true,
           description: true,
-          backgroundColor: true,
-          textColor: true,
-          borderColor: true,
         },
         orderBy:{
-          athikaramNumber: "asc",
+          id: "asc",
         },
       });
     }catch(error){

@@ -1,5 +1,6 @@
 import { thirukkuralRouter } from "~/server/api/routers/thirukkural";
 import { athikaramRouter } from "~/server/api/routers/athikaram";
+import { tilesRouter } from "~/server/api/routers/tiles";
 import { createTRPCRouter } from "~/server/api/trpc";
 
 /**
@@ -10,6 +11,7 @@ import { createTRPCRouter } from "~/server/api/trpc";
 export const appRouter = createTRPCRouter({
   thirukkural: thirukkuralRouter,
   athikaram: athikaramRouter,
+  tiles: tilesRouter,
 });
 
 // export type definition of API
