@@ -99,7 +99,12 @@ model Athikaram {
     backgroundColor      String?
     textColor      	 String?
     borderColor      	 String?
-    tiles 	      	 String?
 
     @@unique([athikaramNumber, description])
+}
+
+model Tiles {
+    id	         Int 	  @id
+    type      	 String?
+    description  String?
 }

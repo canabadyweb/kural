@@ -161,7 +161,6 @@ export type AthikaramPayload<ExtArgs extends $Extensions.Args = $Extensions.Defa
     backgroundColor: string | null
     textColor: string | null
     borderColor: string | null
-    tiles: string | null
   }, ExtArgs["result"]["athikaram"]>
   composites: {}
 }
@@ -171,6 +170,22 @@ export type AthikaramPayload<ExtArgs extends $Extensions.Args = $Extensions.Defa
  * 
  */
 export type Athikaram = runtime.Types.DefaultSelection<AthikaramPayload>
+export type TilesPayload<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
+  name: "Tiles"
+  objects: {}
+  scalars: $Extensions.GetResult<{
+    id: number
+    type: string | null
+    description: string | null
+  }, ExtArgs["result"]["tiles"]>
+  composites: {}
+}
+
+/**
+ * Model Tiles
+ * 
+ */
+export type Tiles = runtime.Types.DefaultSelection<TilesPayload>
 
 /**
  * ##  Prisma Client ʲˢ
@@ -363,6 +378,16 @@ export class PrismaClient<
     * ```
     */
   get athikaram(): Prisma.AthikaramDelegate<ExtArgs>;
+
+  /**
+   * `prisma.tiles`: Exposes CRUD operations for the **Tiles** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Tiles
+    * const tiles = await prisma.tiles.findMany()
+    * ```
+    */
+  get tiles(): Prisma.TilesDelegate<ExtArgs>;
 }
 
 export namespace Prisma {
@@ -852,7 +877,8 @@ export namespace Prisma {
     User: 'User',
     VerificationToken: 'VerificationToken',
     Thirukkural: 'Thirukkural',
-    Athikaram: 'Athikaram'
+    Athikaram: 'Athikaram',
+    Tiles: 'Tiles'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -869,7 +895,7 @@ export namespace Prisma {
 
   export type TypeMap<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
     meta: {
-      modelProps: 'example' | 'account' | 'session' | 'user' | 'verificationToken' | 'thirukkural' | 'athikaram'
+      modelProps: 'example' | 'account' | 'session' | 'user' | 'verificationToken' | 'thirukkural' | 'athikaram' | 'tiles'
       txIsolationLevel: Prisma.TransactionIsolationLevel
     },
     model: {
@@ -1332,6 +1358,72 @@ export namespace Prisma {
           count: {
             args: Prisma.AthikaramCountArgs<ExtArgs>,
             result: $Utils.Optional<AthikaramCountAggregateOutputType> | number
+          }
+        }
+      }
+      Tiles: {
+        payload: TilesPayload<ExtArgs>
+        fields: Prisma.TilesFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.TilesFindUniqueArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<TilesPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.TilesFindUniqueOrThrowArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<TilesPayload>
+          }
+          findFirst: {
+            args: Prisma.TilesFindFirstArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<TilesPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.TilesFindFirstOrThrowArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<TilesPayload>
+          }
+          findMany: {
+            args: Prisma.TilesFindManyArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<TilesPayload>[]
+          }
+          create: {
+            args: Prisma.TilesCreateArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<TilesPayload>
+          }
+          createMany: {
+            args: Prisma.TilesCreateManyArgs<ExtArgs>,
+            result: Prisma.BatchPayload
+          }
+          delete: {
+            args: Prisma.TilesDeleteArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<TilesPayload>
+          }
+          update: {
+            args: Prisma.TilesUpdateArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<TilesPayload>
+          }
+          deleteMany: {
+            args: Prisma.TilesDeleteManyArgs<ExtArgs>,
+            result: Prisma.BatchPayload
+          }
+          updateMany: {
+            args: Prisma.TilesUpdateManyArgs<ExtArgs>,
+            result: Prisma.BatchPayload
+          }
+          upsert: {
+            args: Prisma.TilesUpsertArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<TilesPayload>
+          }
+          aggregate: {
+            args: Prisma.TilesAggregateArgs<ExtArgs>,
+            result: $Utils.Optional<AggregateTiles>
+          }
+          groupBy: {
+            args: Prisma.TilesGroupByArgs<ExtArgs>,
+            result: $Utils.Optional<TilesGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.TilesCountArgs<ExtArgs>,
+            result: $Utils.Optional<TilesCountAggregateOutputType> | number
           }
         }
       }
@@ -7301,7 +7393,6 @@ export namespace Prisma {
     backgroundColor: string | null
     textColor: string | null
     borderColor: string | null
-    tiles: string | null
   }
 
   export type AthikaramMaxAggregateOutputType = {
@@ -7310,7 +7401,6 @@ export namespace Prisma {
     backgroundColor: string | null
     textColor: string | null
     borderColor: string | null
-    tiles: string | null
   }
 
   export type AthikaramCountAggregateOutputType = {
@@ -7319,7 +7409,6 @@ export namespace Prisma {
     backgroundColor: number
     textColor: number
     borderColor: number
-    tiles: number
     _all: number
   }
 
@@ -7338,7 +7427,6 @@ export namespace Prisma {
     backgroundColor?: true
     textColor?: true
     borderColor?: true
-    tiles?: true
   }
 
   export type AthikaramMaxAggregateInputType = {
@@ -7347,7 +7435,6 @@ export namespace Prisma {
     backgroundColor?: true
     textColor?: true
     borderColor?: true
-    tiles?: true
   }
 
   export type AthikaramCountAggregateInputType = {
@@ -7356,7 +7443,6 @@ export namespace Prisma {
     backgroundColor?: true
     textColor?: true
     borderColor?: true
-    tiles?: true
     _all?: true
   }
 
@@ -7453,7 +7539,6 @@ export namespace Prisma {
     backgroundColor: string | null
     textColor: string | null
     borderColor: string | null
-    tiles: string | null
     _count: AthikaramCountAggregateOutputType | null
     _avg: AthikaramAvgAggregateOutputType | null
     _sum: AthikaramSumAggregateOutputType | null
@@ -7481,7 +7566,6 @@ export namespace Prisma {
     backgroundColor?: boolean
     textColor?: boolean
     borderColor?: boolean
-    tiles?: boolean
   }, ExtArgs["result"]["athikaram"]>
 
   export type AthikaramSelectScalar = {
@@ -7490,7 +7574,6 @@ export namespace Prisma {
     backgroundColor?: boolean
     textColor?: boolean
     borderColor?: boolean
-    tiles?: boolean
   }
 
 
@@ -7901,7 +7984,6 @@ export namespace Prisma {
     readonly backgroundColor: FieldRef<"Athikaram", 'String'>
     readonly textColor: FieldRef<"Athikaram", 'String'>
     readonly borderColor: FieldRef<"Athikaram", 'String'>
-    readonly tiles: FieldRef<"Athikaram", 'String'>
   }
     
 
@@ -8190,6 +8272,891 @@ export namespace Prisma {
 
 
   /**
+   * Model Tiles
+   */
+
+
+  export type AggregateTiles = {
+    _count: TilesCountAggregateOutputType | null
+    _avg: TilesAvgAggregateOutputType | null
+    _sum: TilesSumAggregateOutputType | null
+    _min: TilesMinAggregateOutputType | null
+    _max: TilesMaxAggregateOutputType | null
+  }
+
+  export type TilesAvgAggregateOutputType = {
+    id: number | null
+  }
+
+  export type TilesSumAggregateOutputType = {
+    id: number | null
+  }
+
+  export type TilesMinAggregateOutputType = {
+    id: number | null
+    type: string | null
+    description: string | null
+  }
+
+  export type TilesMaxAggregateOutputType = {
+    id: number | null
+    type: string | null
+    description: string | null
+  }
+
+  export type TilesCountAggregateOutputType = {
+    id: number
+    type: number
+    description: number
+    _all: number
+  }
+
+
+  export type TilesAvgAggregateInputType = {
+    id?: true
+  }
+
+  export type TilesSumAggregateInputType = {
+    id?: true
+  }
+
+  export type TilesMinAggregateInputType = {
+    id?: true
+    type?: true
+    description?: true
+  }
+
+  export type TilesMaxAggregateInputType = {
+    id?: true
+    type?: true
+    description?: true
+  }
+
+  export type TilesCountAggregateInputType = {
+    id?: true
+    type?: true
+    description?: true
+    _all?: true
+  }
+
+  export type TilesAggregateArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Tiles to aggregate.
+     */
+    where?: TilesWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Tiles to fetch.
+     */
+    orderBy?: TilesOrderByWithRelationInput | TilesOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: TilesWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Tiles from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Tiles.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Tiles
+    **/
+    _count?: true | TilesCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: TilesAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: TilesSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: TilesMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: TilesMaxAggregateInputType
+  }
+
+  export type GetTilesAggregateType<T extends TilesAggregateArgs> = {
+        [P in keyof T & keyof AggregateTiles]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateTiles[P]>
+      : GetScalarType<T[P], AggregateTiles[P]>
+  }
+
+
+
+
+  export type TilesGroupByArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
+    where?: TilesWhereInput
+    orderBy?: TilesOrderByWithAggregationInput | TilesOrderByWithAggregationInput[]
+    by: TilesScalarFieldEnum[] | TilesScalarFieldEnum
+    having?: TilesScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: TilesCountAggregateInputType | true
+    _avg?: TilesAvgAggregateInputType
+    _sum?: TilesSumAggregateInputType
+    _min?: TilesMinAggregateInputType
+    _max?: TilesMaxAggregateInputType
+  }
+
+
+  export type TilesGroupByOutputType = {
+    id: number
+    type: string | null
+    description: string | null
+    _count: TilesCountAggregateOutputType | null
+    _avg: TilesAvgAggregateOutputType | null
+    _sum: TilesSumAggregateOutputType | null
+    _min: TilesMinAggregateOutputType | null
+    _max: TilesMaxAggregateOutputType | null
+  }
+
+  type GetTilesGroupByPayload<T extends TilesGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<TilesGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof TilesGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], TilesGroupByOutputType[P]>
+            : GetScalarType<T[P], TilesGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type TilesSelect<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    type?: boolean
+    description?: boolean
+  }, ExtArgs["result"]["tiles"]>
+
+  export type TilesSelectScalar = {
+    id?: boolean
+    type?: boolean
+    description?: boolean
+  }
+
+
+  type TilesGetPayload<S extends boolean | null | undefined | TilesArgs> = $Types.GetResult<TilesPayload, S>
+
+  type TilesCountArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = 
+    Omit<TilesFindManyArgs, 'select' | 'include'> & {
+      select?: TilesCountAggregateInputType | true
+    }
+
+  export interface TilesDelegate<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Tiles'], meta: { name: 'Tiles' } }
+    /**
+     * Find zero or one Tiles that matches the filter.
+     * @param {TilesFindUniqueArgs} args - Arguments to find a Tiles
+     * @example
+     * // Get one Tiles
+     * const tiles = await prisma.tiles.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findUnique<T extends TilesFindUniqueArgs<ExtArgs>>(
+      args: SelectSubset<T, TilesFindUniqueArgs<ExtArgs>>
+    ): Prisma__TilesClient<$Types.GetResult<TilesPayload<ExtArgs>, T, 'findUnique'> | null, null, ExtArgs>
+
+    /**
+     * Find one Tiles that matches the filter or throw an error  with `error.code='P2025'` 
+     *     if no matches were found.
+     * @param {TilesFindUniqueOrThrowArgs} args - Arguments to find a Tiles
+     * @example
+     * // Get one Tiles
+     * const tiles = await prisma.tiles.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findUniqueOrThrow<T extends TilesFindUniqueOrThrowArgs<ExtArgs>>(
+      args?: SelectSubset<T, TilesFindUniqueOrThrowArgs<ExtArgs>>
+    ): Prisma__TilesClient<$Types.GetResult<TilesPayload<ExtArgs>, T, 'findUniqueOrThrow'>, never, ExtArgs>
+
+    /**
+     * Find the first Tiles that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TilesFindFirstArgs} args - Arguments to find a Tiles
+     * @example
+     * // Get one Tiles
+     * const tiles = await prisma.tiles.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findFirst<T extends TilesFindFirstArgs<ExtArgs>>(
+      args?: SelectSubset<T, TilesFindFirstArgs<ExtArgs>>
+    ): Prisma__TilesClient<$Types.GetResult<TilesPayload<ExtArgs>, T, 'findFirst'> | null, null, ExtArgs>
+
+    /**
+     * Find the first Tiles that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TilesFindFirstOrThrowArgs} args - Arguments to find a Tiles
+     * @example
+     * // Get one Tiles
+     * const tiles = await prisma.tiles.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findFirstOrThrow<T extends TilesFindFirstOrThrowArgs<ExtArgs>>(
+      args?: SelectSubset<T, TilesFindFirstOrThrowArgs<ExtArgs>>
+    ): Prisma__TilesClient<$Types.GetResult<TilesPayload<ExtArgs>, T, 'findFirstOrThrow'>, never, ExtArgs>
+
+    /**
+     * Find zero or more Tiles that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TilesFindManyArgs=} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Tiles
+     * const tiles = await prisma.tiles.findMany()
+     * 
+     * // Get first 10 Tiles
+     * const tiles = await prisma.tiles.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const tilesWithIdOnly = await prisma.tiles.findMany({ select: { id: true } })
+     * 
+    **/
+    findMany<T extends TilesFindManyArgs<ExtArgs>>(
+      args?: SelectSubset<T, TilesFindManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<$Types.GetResult<TilesPayload<ExtArgs>, T, 'findMany'>>
+
+    /**
+     * Create a Tiles.
+     * @param {TilesCreateArgs} args - Arguments to create a Tiles.
+     * @example
+     * // Create one Tiles
+     * const Tiles = await prisma.tiles.create({
+     *   data: {
+     *     // ... data to create a Tiles
+     *   }
+     * })
+     * 
+    **/
+    create<T extends TilesCreateArgs<ExtArgs>>(
+      args: SelectSubset<T, TilesCreateArgs<ExtArgs>>
+    ): Prisma__TilesClient<$Types.GetResult<TilesPayload<ExtArgs>, T, 'create'>, never, ExtArgs>
+
+    /**
+     * Create many Tiles.
+     *     @param {TilesCreateManyArgs} args - Arguments to create many Tiles.
+     *     @example
+     *     // Create many Tiles
+     *     const tiles = await prisma.tiles.createMany({
+     *       data: {
+     *         // ... provide data here
+     *       }
+     *     })
+     *     
+    **/
+    createMany<T extends TilesCreateManyArgs<ExtArgs>>(
+      args?: SelectSubset<T, TilesCreateManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a Tiles.
+     * @param {TilesDeleteArgs} args - Arguments to delete one Tiles.
+     * @example
+     * // Delete one Tiles
+     * const Tiles = await prisma.tiles.delete({
+     *   where: {
+     *     // ... filter to delete one Tiles
+     *   }
+     * })
+     * 
+    **/
+    delete<T extends TilesDeleteArgs<ExtArgs>>(
+      args: SelectSubset<T, TilesDeleteArgs<ExtArgs>>
+    ): Prisma__TilesClient<$Types.GetResult<TilesPayload<ExtArgs>, T, 'delete'>, never, ExtArgs>
+
+    /**
+     * Update one Tiles.
+     * @param {TilesUpdateArgs} args - Arguments to update one Tiles.
+     * @example
+     * // Update one Tiles
+     * const tiles = await prisma.tiles.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+    **/
+    update<T extends TilesUpdateArgs<ExtArgs>>(
+      args: SelectSubset<T, TilesUpdateArgs<ExtArgs>>
+    ): Prisma__TilesClient<$Types.GetResult<TilesPayload<ExtArgs>, T, 'update'>, never, ExtArgs>
+
+    /**
+     * Delete zero or more Tiles.
+     * @param {TilesDeleteManyArgs} args - Arguments to filter Tiles to delete.
+     * @example
+     * // Delete a few Tiles
+     * const { count } = await prisma.tiles.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+    **/
+    deleteMany<T extends TilesDeleteManyArgs<ExtArgs>>(
+      args?: SelectSubset<T, TilesDeleteManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Tiles.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TilesUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Tiles
+     * const tiles = await prisma.tiles.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+    **/
+    updateMany<T extends TilesUpdateManyArgs<ExtArgs>>(
+      args: SelectSubset<T, TilesUpdateManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one Tiles.
+     * @param {TilesUpsertArgs} args - Arguments to update or create a Tiles.
+     * @example
+     * // Update or create a Tiles
+     * const tiles = await prisma.tiles.upsert({
+     *   create: {
+     *     // ... data to create a Tiles
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Tiles we want to update
+     *   }
+     * })
+    **/
+    upsert<T extends TilesUpsertArgs<ExtArgs>>(
+      args: SelectSubset<T, TilesUpsertArgs<ExtArgs>>
+    ): Prisma__TilesClient<$Types.GetResult<TilesPayload<ExtArgs>, T, 'upsert'>, never, ExtArgs>
+
+    /**
+     * Count the number of Tiles.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TilesCountArgs} args - Arguments to filter Tiles to count.
+     * @example
+     * // Count the number of Tiles
+     * const count = await prisma.tiles.count({
+     *   where: {
+     *     // ... the filter for the Tiles we want to count
+     *   }
+     * })
+    **/
+    count<T extends TilesCountArgs>(
+      args?: Subset<T, TilesCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], TilesCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Tiles.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TilesAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends TilesAggregateArgs>(args: Subset<T, TilesAggregateArgs>): Prisma.PrismaPromise<GetTilesAggregateType<T>>
+
+    /**
+     * Group by Tiles.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TilesGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends TilesGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: TilesGroupByArgs['orderBy'] }
+        : { orderBy?: TilesGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, TilesGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetTilesGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Tiles model
+   */
+  readonly fields: TilesFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Tiles.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export class Prisma__TilesClient<T, Null = never, ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> implements Prisma.PrismaPromise<T> {
+    private readonly _dmmf;
+    private readonly _queryType;
+    private readonly _rootField;
+    private readonly _clientMethod;
+    private readonly _args;
+    private readonly _dataPath;
+    private readonly _errorFormat;
+    private readonly _measurePerformance?;
+    private _isList;
+    private _callsite;
+    private _requestPromise?;
+    readonly [Symbol.toStringTag]: 'PrismaPromise';
+    constructor(_dmmf: runtime.DMMFClass, _queryType: 'query' | 'mutation', _rootField: string, _clientMethod: string, _args: any, _dataPath: string[], _errorFormat: ErrorFormat, _measurePerformance?: boolean | undefined, _isList?: boolean);
+
+
+    private get _document();
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): Promise<TResult1 | TResult2>;
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): Promise<T | TResult>;
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): Promise<T>;
+  }
+
+
+
+  /**
+   * Fields of the Tiles model
+   */ 
+  interface TilesFieldRefs {
+    readonly id: FieldRef<"Tiles", 'Int'>
+    readonly type: FieldRef<"Tiles", 'String'>
+    readonly description: FieldRef<"Tiles", 'String'>
+  }
+    
+
+  // Custom InputTypes
+
+  /**
+   * Tiles findUnique
+   */
+  export type TilesFindUniqueArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Tiles
+     */
+    select?: TilesSelect<ExtArgs> | null
+    /**
+     * Filter, which Tiles to fetch.
+     */
+    where: TilesWhereUniqueInput
+  }
+
+
+  /**
+   * Tiles findUniqueOrThrow
+   */
+  export type TilesFindUniqueOrThrowArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Tiles
+     */
+    select?: TilesSelect<ExtArgs> | null
+    /**
+     * Filter, which Tiles to fetch.
+     */
+    where: TilesWhereUniqueInput
+  }
+
+
+  /**
+   * Tiles findFirst
+   */
+  export type TilesFindFirstArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Tiles
+     */
+    select?: TilesSelect<ExtArgs> | null
+    /**
+     * Filter, which Tiles to fetch.
+     */
+    where?: TilesWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Tiles to fetch.
+     */
+    orderBy?: TilesOrderByWithRelationInput | TilesOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Tiles.
+     */
+    cursor?: TilesWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Tiles from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Tiles.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Tiles.
+     */
+    distinct?: TilesScalarFieldEnum | TilesScalarFieldEnum[]
+  }
+
+
+  /**
+   * Tiles findFirstOrThrow
+   */
+  export type TilesFindFirstOrThrowArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Tiles
+     */
+    select?: TilesSelect<ExtArgs> | null
+    /**
+     * Filter, which Tiles to fetch.
+     */
+    where?: TilesWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Tiles to fetch.
+     */
+    orderBy?: TilesOrderByWithRelationInput | TilesOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Tiles.
+     */
+    cursor?: TilesWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Tiles from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Tiles.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Tiles.
+     */
+    distinct?: TilesScalarFieldEnum | TilesScalarFieldEnum[]
+  }
+
+
+  /**
+   * Tiles findMany
+   */
+  export type TilesFindManyArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Tiles
+     */
+    select?: TilesSelect<ExtArgs> | null
+    /**
+     * Filter, which Tiles to fetch.
+     */
+    where?: TilesWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Tiles to fetch.
+     */
+    orderBy?: TilesOrderByWithRelationInput | TilesOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Tiles.
+     */
+    cursor?: TilesWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Tiles from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Tiles.
+     */
+    skip?: number
+    distinct?: TilesScalarFieldEnum | TilesScalarFieldEnum[]
+  }
+
+
+  /**
+   * Tiles create
+   */
+  export type TilesCreateArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Tiles
+     */
+    select?: TilesSelect<ExtArgs> | null
+    /**
+     * The data needed to create a Tiles.
+     */
+    data: XOR<TilesCreateInput, TilesUncheckedCreateInput>
+  }
+
+
+  /**
+   * Tiles createMany
+   */
+  export type TilesCreateManyArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Tiles.
+     */
+    data: TilesCreateManyInput | TilesCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+
+  /**
+   * Tiles update
+   */
+  export type TilesUpdateArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Tiles
+     */
+    select?: TilesSelect<ExtArgs> | null
+    /**
+     * The data needed to update a Tiles.
+     */
+    data: XOR<TilesUpdateInput, TilesUncheckedUpdateInput>
+    /**
+     * Choose, which Tiles to update.
+     */
+    where: TilesWhereUniqueInput
+  }
+
+
+  /**
+   * Tiles updateMany
+   */
+  export type TilesUpdateManyArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Tiles.
+     */
+    data: XOR<TilesUpdateManyMutationInput, TilesUncheckedUpdateManyInput>
+    /**
+     * Filter which Tiles to update
+     */
+    where?: TilesWhereInput
+  }
+
+
+  /**
+   * Tiles upsert
+   */
+  export type TilesUpsertArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Tiles
+     */
+    select?: TilesSelect<ExtArgs> | null
+    /**
+     * The filter to search for the Tiles to update in case it exists.
+     */
+    where: TilesWhereUniqueInput
+    /**
+     * In case the Tiles found by the `where` argument doesn't exist, create a new Tiles with this data.
+     */
+    create: XOR<TilesCreateInput, TilesUncheckedCreateInput>
+    /**
+     * In case the Tiles was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<TilesUpdateInput, TilesUncheckedUpdateInput>
+  }
+
+
+  /**
+   * Tiles delete
+   */
+  export type TilesDeleteArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Tiles
+     */
+    select?: TilesSelect<ExtArgs> | null
+    /**
+     * Filter which Tiles to delete.
+     */
+    where: TilesWhereUniqueInput
+  }
+
+
+  /**
+   * Tiles deleteMany
+   */
+  export type TilesDeleteManyArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Tiles to delete
+     */
+    where?: TilesWhereInput
+  }
+
+
+  /**
+   * Tiles without action
+   */
+  export type TilesArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Tiles
+     */
+    select?: TilesSelect<ExtArgs> | null
+  }
+
+
+
+  /**
    * Enums
    */
 
@@ -8299,11 +9266,19 @@ export namespace Prisma {
     description: 'description',
     backgroundColor: 'backgroundColor',
     textColor: 'textColor',
-    borderColor: 'borderColor',
-    tiles: 'tiles'
+    borderColor: 'borderColor'
   };
 
   export type AthikaramScalarFieldEnum = (typeof AthikaramScalarFieldEnum)[keyof typeof AthikaramScalarFieldEnum]
+
+
+  export const TilesScalarFieldEnum: {
+    id: 'id',
+    type: 'type',
+    description: 'description'
+  };
+
+  export type TilesScalarFieldEnum = (typeof TilesScalarFieldEnum)[keyof typeof TilesScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -8858,7 +9833,6 @@ export namespace Prisma {
     backgroundColor?: StringNullableFilter<"Athikaram"> | string | null
     textColor?: StringNullableFilter<"Athikaram"> | string | null
     borderColor?: StringNullableFilter<"Athikaram"> | string | null
-    tiles?: StringNullableFilter<"Athikaram"> | string | null
   }
 
   export type AthikaramOrderByWithRelationInput = {
@@ -8867,7 +9841,6 @@ export namespace Prisma {
     backgroundColor?: SortOrderInput | SortOrder
     textColor?: SortOrderInput | SortOrder
     borderColor?: SortOrderInput | SortOrder
-    tiles?: SortOrderInput | SortOrder
   }
 
   export type AthikaramWhereUniqueInput = Prisma.AtLeast<{
@@ -8880,7 +9853,6 @@ export namespace Prisma {
     backgroundColor?: StringNullableFilter<"Athikaram"> | string | null
     textColor?: StringNullableFilter<"Athikaram"> | string | null
     borderColor?: StringNullableFilter<"Athikaram"> | string | null
-    tiles?: StringNullableFilter<"Athikaram"> | string | null
   }, "athikaramNumber" | "athikaramNumber_description">
 
   export type AthikaramOrderByWithAggregationInput = {
@@ -8889,7 +9861,6 @@ export namespace Prisma {
     backgroundColor?: SortOrderInput | SortOrder
     textColor?: SortOrderInput | SortOrder
     borderColor?: SortOrderInput | SortOrder
-    tiles?: SortOrderInput | SortOrder
     _count?: AthikaramCountOrderByAggregateInput
     _avg?: AthikaramAvgOrderByAggregateInput
     _max?: AthikaramMaxOrderByAggregateInput
@@ -8906,7 +9877,50 @@ export namespace Prisma {
     backgroundColor?: StringNullableWithAggregatesFilter<"Athikaram"> | string | null
     textColor?: StringNullableWithAggregatesFilter<"Athikaram"> | string | null
     borderColor?: StringNullableWithAggregatesFilter<"Athikaram"> | string | null
-    tiles?: StringNullableWithAggregatesFilter<"Athikaram"> | string | null
+  }
+
+  export type TilesWhereInput = {
+    AND?: TilesWhereInput | TilesWhereInput[]
+    OR?: TilesWhereInput[]
+    NOT?: TilesWhereInput | TilesWhereInput[]
+    id?: IntFilter<"Tiles"> | number
+    type?: StringNullableFilter<"Tiles"> | string | null
+    description?: StringNullableFilter<"Tiles"> | string | null
+  }
+
+  export type TilesOrderByWithRelationInput = {
+    id?: SortOrder
+    type?: SortOrderInput | SortOrder
+    description?: SortOrderInput | SortOrder
+  }
+
+  export type TilesWhereUniqueInput = Prisma.AtLeast<{
+    id?: number
+    AND?: TilesWhereInput | TilesWhereInput[]
+    OR?: TilesWhereInput[]
+    NOT?: TilesWhereInput | TilesWhereInput[]
+    type?: StringNullableFilter<"Tiles"> | string | null
+    description?: StringNullableFilter<"Tiles"> | string | null
+  }, "id">
+
+  export type TilesOrderByWithAggregationInput = {
+    id?: SortOrder
+    type?: SortOrderInput | SortOrder
+    description?: SortOrderInput | SortOrder
+    _count?: TilesCountOrderByAggregateInput
+    _avg?: TilesAvgOrderByAggregateInput
+    _max?: TilesMaxOrderByAggregateInput
+    _min?: TilesMinOrderByAggregateInput
+    _sum?: TilesSumOrderByAggregateInput
+  }
+
+  export type TilesScalarWhereWithAggregatesInput = {
+    AND?: TilesScalarWhereWithAggregatesInput | TilesScalarWhereWithAggregatesInput[]
+    OR?: TilesScalarWhereWithAggregatesInput[]
+    NOT?: TilesScalarWhereWithAggregatesInput | TilesScalarWhereWithAggregatesInput[]
+    id?: IntWithAggregatesFilter<"Tiles"> | number
+    type?: StringNullableWithAggregatesFilter<"Tiles"> | string | null
+    description?: StringNullableWithAggregatesFilter<"Tiles"> | string | null
   }
 
   export type ExampleCreateInput = {
@@ -9432,7 +10446,6 @@ export namespace Prisma {
     backgroundColor?: string | null
     textColor?: string | null
     borderColor?: string | null
-    tiles?: string | null
   }
 
   export type AthikaramUncheckedCreateInput = {
@@ -9441,7 +10454,6 @@ export namespace Prisma {
     backgroundColor?: string | null
     textColor?: string | null
     borderColor?: string | null
-    tiles?: string | null
   }
 
   export type AthikaramUpdateInput = {
@@ -9450,7 +10462,6 @@ export namespace Prisma {
     backgroundColor?: NullableStringFieldUpdateOperationsInput | string | null
     textColor?: NullableStringFieldUpdateOperationsInput | string | null
     borderColor?: NullableStringFieldUpdateOperationsInput | string | null
-    tiles?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type AthikaramUncheckedUpdateInput = {
@@ -9459,7 +10470,6 @@ export namespace Prisma {
     backgroundColor?: NullableStringFieldUpdateOperationsInput | string | null
     textColor?: NullableStringFieldUpdateOperationsInput | string | null
     borderColor?: NullableStringFieldUpdateOperationsInput | string | null
-    tiles?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type AthikaramCreateManyInput = {
@@ -9468,7 +10478,6 @@ export namespace Prisma {
     backgroundColor?: string | null
     textColor?: string | null
     borderColor?: string | null
-    tiles?: string | null
   }
 
   export type AthikaramUpdateManyMutationInput = {
@@ -9477,7 +10486,6 @@ export namespace Prisma {
     backgroundColor?: NullableStringFieldUpdateOperationsInput | string | null
     textColor?: NullableStringFieldUpdateOperationsInput | string | null
     borderColor?: NullableStringFieldUpdateOperationsInput | string | null
-    tiles?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type AthikaramUncheckedUpdateManyInput = {
@@ -9486,7 +10494,48 @@ export namespace Prisma {
     backgroundColor?: NullableStringFieldUpdateOperationsInput | string | null
     textColor?: NullableStringFieldUpdateOperationsInput | string | null
     borderColor?: NullableStringFieldUpdateOperationsInput | string | null
-    tiles?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type TilesCreateInput = {
+    id: number
+    type?: string | null
+    description?: string | null
+  }
+
+  export type TilesUncheckedCreateInput = {
+    id: number
+    type?: string | null
+    description?: string | null
+  }
+
+  export type TilesUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    type?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type TilesUncheckedUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    type?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type TilesCreateManyInput = {
+    id: number
+    type?: string | null
+    description?: string | null
+  }
+
+  export type TilesUpdateManyMutationInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    type?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type TilesUncheckedUpdateManyInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    type?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type StringFilter<$PrismaModel = never> = {
@@ -9955,7 +11004,6 @@ export namespace Prisma {
     backgroundColor?: SortOrder
     textColor?: SortOrder
     borderColor?: SortOrder
-    tiles?: SortOrder
   }
 
   export type AthikaramAvgOrderByAggregateInput = {
@@ -9968,7 +11016,6 @@ export namespace Prisma {
     backgroundColor?: SortOrder
     textColor?: SortOrder
     borderColor?: SortOrder
-    tiles?: SortOrder
   }
 
   export type AthikaramMinOrderByAggregateInput = {
@@ -9977,11 +11024,36 @@ export namespace Prisma {
     backgroundColor?: SortOrder
     textColor?: SortOrder
     borderColor?: SortOrder
-    tiles?: SortOrder
   }
 
   export type AthikaramSumOrderByAggregateInput = {
     athikaramNumber?: SortOrder
+  }
+
+  export type TilesCountOrderByAggregateInput = {
+    id?: SortOrder
+    type?: SortOrder
+    description?: SortOrder
+  }
+
+  export type TilesAvgOrderByAggregateInput = {
+    id?: SortOrder
+  }
+
+  export type TilesMaxOrderByAggregateInput = {
+    id?: SortOrder
+    type?: SortOrder
+    description?: SortOrder
+  }
+
+  export type TilesMinOrderByAggregateInput = {
+    id?: SortOrder
+    type?: SortOrder
+    description?: SortOrder
+  }
+
+  export type TilesSumOrderByAggregateInput = {
+    id?: SortOrder
   }
 
   export type StringFieldUpdateOperationsInput = {

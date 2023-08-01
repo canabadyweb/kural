@@ -95,12 +95,16 @@ model Thirukkural {
 
 model Athikaram {
     athikaramNumber	 Int 	  @id
-    description      	 String?  
-    backgroundColor      String?  
-    textColor      	 String?  
-    borderColor      	 String?  
-    tiles 	      	 String?  
+    description      	 String?
+    backgroundColor      String?
+    textColor      	 String?
+    borderColor      	 String?
 
     @@unique([athikaramNumber, description])
 }
 
+model Tiles {
+    id	         Int 	  @id
+    type      	 String?
+    description  String?
+}

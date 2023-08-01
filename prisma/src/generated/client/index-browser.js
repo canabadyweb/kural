@@ -183,8 +183,13 @@ exports.Prisma.AthikaramScalarFieldEnum = {
   description: 'description',
   backgroundColor: 'backgroundColor',
   textColor: 'textColor',
-  borderColor: 'borderColor',
-  tiles: 'tiles'
+  borderColor: 'borderColor'
+};
+
+exports.Prisma.TilesScalarFieldEnum = {
+  id: 'id',
+  type: 'type',
+  description: 'description'
 };
 
 exports.Prisma.SortOrder = {
@@ -210,7 +215,8 @@ exports.Prisma.ModelName = {
   User: 'User',
   VerificationToken: 'VerificationToken',
   Thirukkural: 'Thirukkural',
-  Athikaram: 'Athikaram'
+  Athikaram: 'Athikaram',
+  Tiles: 'Tiles'
 };
 
 /**
