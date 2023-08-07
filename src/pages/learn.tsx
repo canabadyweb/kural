@@ -286,7 +286,7 @@ const TileTooltip = ({
         </div>
         {status === "ACTIVE" ? (
           <Link
-            href="/lesson"
+            href={["/lesson?unit=",athikaramNumber].join("")}
             className={[
               "flex w-full items-center justify-center rounded-xl border-b-4 border-gray-200 bg-white p-3 uppercase",
               activeTextColor,

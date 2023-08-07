@@ -41,6 +41,8 @@ const formatTime = (timeMs: number): string => {
 const Lesson: NextPage = () => {
   const router = useRouter();
 
+  const chapterIndex = router?.query?.unit ?? 1;
+
   const [lessonProblem, setLessonProblem] = useState(0);
   const [correctAnswerCount, setCorrectAnswerCount] = useState(0);
   const [incorrectAnswerCount, setIncorrectAnswerCount] = useState(0);
@@ -56,7 +58,7 @@ const Lesson: NextPage = () => {
   const [questionResults, setQuestionResults] = useState<QuestionResult[]>([]);
   const [reviewLessonShown, setReviewLessonShown] = useState(false);
 
-  const { data: kurals, isLoading } = api.thirukkural.getKuralsForAthikaram.useQuery({chapter_index: 1});
+  const { data: kurals, isLoading } = api.thirukkural.getKuralsForAthikaram.useQuery({chapter_index: Number(chapterIndex)});
 
   let lessonProblems = [];
 
@@ -125,7 +127,6 @@ const Lesson: NextPage = () => {
       // } 
   };
 
-    // debugger;
   const kuralLessons = (a) => { return  a.map ( a => kuralLessonProblem(a));}
 
     lessonProblems = [ ...kuralLessons(kurals)];
