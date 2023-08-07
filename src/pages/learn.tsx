@@ -656,7 +656,7 @@ const UnitHeader = ({
 
   return (
     <article
-      className={["max-w-2xl sm:rounded-xl", backgroundColor].join(
+      className={["max-w-2xl text-white sm:rounded-xl", backgroundColor].join(
         " "
       )}
     >
