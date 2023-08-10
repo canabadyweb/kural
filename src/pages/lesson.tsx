@@ -19,7 +19,7 @@ import womanPng from "../../public/woman.png";
 import { useBoundStore } from "../hooks/useBoundStore";
 import { useRouter } from "next/router";
 
-import {api} from "~/utils/api";
+import { PrismaClient  } from '../../prisma/src/generated/client';
 
 const numbersEqual = (a: readonly number[], b: readonly number[]): boolean => {
   return a.length === b.length && a.every((_, i) => a[i] === b[i]);
@@ -38,98 +38,90 @@ const formatTime = (timeMs: number): string => {
     .join(":");
 };
 
-const Lesson: NextPage = () => {
-  const router = useRouter();
 
-  const chapterIndex = router?.query?.unit ?? 1;
+/* Shuffle words with index, shuffle-index and value */
+const shuffle = ( inputString: string)  => {
+return inputString.replace('<br />','')
+      .split(/(\s+)/).filter( (e) =>  { return e.trim().length > 0 } )
+      .map((a, i) => ({ sort: Math.random(), index: i, value: a }))
+      .sort((a, b) => a.sort - b.sort)
+      .map((a,i) => ({sindex: i, index: a.index, value:a.value, aindex: a.index}))
 
-  const [lessonProblem, setLessonProblem] = useState(0);
-  const [correctAnswerCount, setCorrectAnswerCount] = useState(0);
-  const [incorrectAnswerCount, setIncorrectAnswerCount] = useState(0);
-  const [selectedAnswer, setSelectedAnswer] = useState<null | number>(null);
-  const [correctAnswerShown, setCorrectAnswerShown] = useState(false);
-  const [quitMessageShown, setQuitMessageShown] = useState(false);
+}
 
-  const [selectedAnswers, setSelectedAnswers] = useState<number[]>([]);
+const kuralLessonProblem = ( input ) => {
 
-  const startTime = useRef(Date.now());
-  const endTime = useRef(startTime.current + 1000 * 60 * 3 + 1000 * 33);
+  const shuffled = shuffle(input.kural);
 
-  const [questionResults, setQuestionResults] = useState<QuestionResult[]>([]);
-  const [reviewLessonShown, setReviewLessonShown] = useState(false);
+ /* creating alternative_index to identify duplicate words */
+  shuffled.forEach(
+      (obj, i) => {
+          const itemIndex =  shuffled.findIndex((item) => item.value === obj.value);
+          shuffled[i].aindex = shuffled[itemIndex].index;
+      }
+  );  
 
-  const { data: kurals, isLoading } = api.thirukkural.getKuralsForAthikaram.useQuery({chapter_index: Number(chapterIndex)});
-
-  let lessonProblems = [];
-
-  if (isLoading){
-    return "Loading...";
-  }
-  else{
-
-
-  /* Shuffle words with index, shuffle-index and value */
-  const shuffle = ( inputString: string)  => {
-    return inputString.replace('<br />','')
-          .split(/(\s+)/).filter( (e) =>  { return e.trim().length > 0 } )
-          .map((a, i) => ({ sort: Math.random(), index: i, value: a }))
-          .sort((a, b) => a.sort - b.sort)
-          .map((a,i) => ({sindex: i, index: a.index, value:a.value, aindex: a.index}))
-
-  }
-
-  const kuralLessonProblem = ( input ) => {
-
-      const shuffled = shuffle(input.kural);
-
-     /* creating alternative_index to identify duplicate words */
-      shuffled.forEach(
-          (obj, i) => {
-              const itemIndex =  shuffled.findIndex((item) => item.value === obj.value);
-              shuffled[i].aindex = shuffled[itemIndex].index;
+  /* Mapping index = alternative_index for sync between duplicate words */
+  shuffled.forEach(
+      (obj, i) => {
+          if (obj.index !== obj.aindex)
+          {
+              const itemIndex =  shuffled.findIndex((item) => item.index === obj.aindex);
+              shuffled[itemIndex].aindex = obj.index
           }
-      );  
 
-      /* Mapping index = alternative_index for sync between duplicate words */
-      shuffled.forEach(
-          (obj, i) => {
-              if (obj.index !== obj.aindex)
-              {
-                  const itemIndex =  shuffled.findIndex((item) => item.index === obj.aindex);
-                  shuffled[itemIndex].aindex = obj.index
-              }
+      }
+  );
 
-          }
-      );
+  /* create a copy of shuffled as shuffled1 as sorting alters the element order */
+  const shuffled1 = Array.from(shuffled);
+  /* create a copy of shuffled as shuffled2  as sorting alters the element order */
+  const shuffled2 = Array.from(shuffled);
 
-      /* create a copy of shuffled as shuffled1 as sorting alters the element order */
-      const shuffled1 = Array.from(shuffled);
-      /* create a copy of shuffled as shuffled2  as sorting alters the element order */
-      const shuffled2 = Array.from(shuffled);
+  /* Correct Answer #1 based on index */
+  const correctAnswer1 = shuffled1.sort((a,b) => a.index - b.index).map( a => a.sindex);
+  /* Correct Answer #2 based on alternative_index */
+  const correctAnswer2 = shuffled2.sort((a,b) => a.aindex - b.aindex).map( a => a.sindex);
 
-      /* Correct Answer #1 based on index */
-      const correctAnswer1 = shuffled1.sort((a,b) => a.index - b.index).map( a => a.sindex);
-      /* Correct Answer #2 based on alternative_index */
-      const correctAnswer2 = shuffled2.sort((a,b) => a.aindex - b.aindex).map( a => a.sindex);
+  return {
+          type: "WRITE_IN_THAMIZH",
+          question: "குறள்: " + input.id,
+          answerTiles: shuffled.map( a => a.value),
+          correctAnswer: (JSON.stringify(correctAnswer1) === JSON.stringify(correctAnswer2)) ? correctAnswer1 : [ [...correctAnswer1], [...correctAnswer2]],
+  } 
 
-      return {
-              type: "WRITE_IN_THAMIZH",
-              question: "குறள்: " + input.id,
-              answerTiles: shuffled.map( a => a.value),
-              correctAnswer: (JSON.stringify(correctAnswer1) === JSON.stringify(correctAnswer2)) ? correctAnswer1 : [ [...correctAnswer1], [...correctAnswer2]],
-      } 
+  // return {
+  //         type: "WRITE_IN_THAMIZH",
+  //         question: "குறள்: " + String(input.id),
+  //         answerTiles: shuffled.map( a => a.value),
+  //         correctAnswer: shuffled.sort((a,b) => a.index - b.index).map( a => a.sindex),
+  // } 
+};
 
-      // return {
-      //         type: "WRITE_IN_THAMIZH",
-      //         question: "குறள்: " + String(input.id),
-      //         answerTiles: shuffled.map( a => a.value),
-      //         correctAnswer: shuffled.sort((a,b) => a.index - b.index).map( a => a.sindex),
-      // } 
-  };
+const kuralLessons = (a) => { return  a.map ( a => kuralLessonProblem(a));}
 
-  const kuralLessons = (a) => { return  a.map ( a => kuralLessonProblem(a));}
 
-    lessonProblems = [ ...kuralLessons(kurals)];
+const Lesson: NextPage = (props) => {
+    const router = useRouter();
+
+    const chapterIndex = router?.query?.unit ?? 1;
+
+    const [lessonProblem, setLessonProblem] = useState(0);
+    const [correctAnswerCount, setCorrectAnswerCount] = useState(0);
+    const [incorrectAnswerCount, setIncorrectAnswerCount] = useState(0);
+    const [selectedAnswer, setSelectedAnswer] = useState<null | number>(null);
+    const [correctAnswerShown, setCorrectAnswerShown] = useState(false);
+    const [quitMessageShown, setQuitMessageShown] = useState(false);
+
+    const [selectedAnswers, setSelectedAnswers] = useState<number[]>([]);
+
+    const startTime = useRef(Date.now());
+    const endTime = useRef(startTime.current + 1000 * 60 * 3 + 1000 * 33);
+
+    const [questionResults, setQuestionResults] = useState<QuestionResult[]>([]);
+    const [reviewLessonShown, setReviewLessonShown] = useState(false);
+
+    const lessonProblems = props.lessonProblems;
 
     const problem = lessonProblems[lessonProblem] ?? lessonProblem1;
 
@@ -208,6 +200,7 @@ const Lesson: NextPage = () => {
 
     const unitNumber = Number(router.query["fast-forward"]);
 
+
     if (hearts !== null && hearts < 0 && !correctAnswerShown) {
       return (
         <LessonFastForwardEndFail
@@ -280,7 +273,6 @@ const Lesson: NextPage = () => {
         );
       }
     }
- }
 }
 
 export default Lesson;
@@ -948,3 +940,23 @@ const LessonFastForwardEndPass = ({
     </div>
   );
 };
+
+
+export const getServerSideProps = async ({
+  query
+}) => {
+  const prisma = new PrismaClient()
+  const chapterIndex = Number(query?.unit ?? 1);
+
+  const kurals = await prisma.thirukkural.findMany({
+    where: {
+      chapter_index: chapterIndex,
+    }
+  })
+
+  return {
+    props: {
+      lessonProblems: kuralLessons(kurals),
+    },
+  }
+}
